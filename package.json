@@ -1,12 +1,13 @@
 {
   "name": "defmethod",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "author": "Looveh",
   "license": "MIT",
   "module": "index.ts",
   "main": "index.js",
   "description": "Multimethods for TypeScript",
+  "homepage": "https://github.com/Looveh/defmethod",
   "devDependencies": {
     "@types/bun": "latest"
   },
