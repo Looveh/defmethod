@@ -5,6 +5,18 @@ Dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch) in TypeScript.
 
 ## Examples
 
+### Hello world
+
+```ts
+const greet = defmulti((greeting) => greeting.type);
+
+defmethod(greet, "hi", (p) => `Hello ${p.name}!`);
+defmethod(greet, "bye", (p) => `Good bye ${p.name}!`);
+
+greet({ type: "hi", name: "John" })   // => Hello John!
+greet({ type: "bye", name: "Sarah" }) // => Good bye Sarah!
+```
+
 ### Discriminating unions
 
 A common pattern in large-ish TypeScript code bases is that of [discriminating
@@ -57,19 +69,12 @@ defmethod(handle, "failed", (ns) => ...);
 defmethod(handle, "success", (ns) => ...);
 ```
 
-### Hello world
-
-```ts
-const greet = defmulti((greeting) => greeting.type);
-
-defmethod(greet, "hi", (p) => `Hello ${p.name}!`);
-defmethod(greet, "bye", (p) => `Good bye ${p.name}!`);
-
-greet({ type: "hi", name: "John" })   // => Hello John!
-greet({ type: "bye", name: "Sarah" }) // => Good bye Sarah!
-```
-
 ### Collatz sequences
+
+The multimethod and dispatch fn can take any argument and return any value, it
+does not necessarily need to be an object. One can for example use multimethods
+to generate [Collatz
+sequences](https://en.wikipedia.org/wiki/Collatz_conjecture).
 
 ```ts
 const collatzStep = defmulti((n: number) => n % 2 === 0 ? "even" : "odd");
@@ -98,7 +103,7 @@ collatzSeq(27); // => [27, 82, 41, 124, 62, 31, ...]
 
 ### React
 
-Works with React too.
+Works well with React too.
 
 ```tsx
 import { defmulti, defmethod } from "multimethods"
