@@ -3,6 +3,12 @@
 A light weight library for [Multimethods / Multiple
 Dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch) in TypeScript.
 
+## Installation
+
+```sh
+bun add defmethod
+```
+
 ## Usage
 
 ```ts

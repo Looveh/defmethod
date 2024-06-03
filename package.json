@@ -1,7 +1,12 @@
 {
-  "name": "multimethod",
+  "name": "defmethod",
+  "version": "1.0.0",
+  "private": false,
+  "author": "Looveh",
+  "license": "MIT",
   "module": "index.ts",
-  "type": "module",
+  "main": "index.js",
+  "description": "Multimethods for TypeScript",
   "devDependencies": {
     "@types/bun": "latest"
   },
