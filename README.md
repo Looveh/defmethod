@@ -1,6 +1,6 @@
 # multimethod
 
-TODO
+A light weight library for [Multiple Dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch#:~:text=Multiple%20dispatch%20or%20multimethods%20is,than%20one%20of%20its%20arguments.) in TypeScript.
 
 ## Examples
 
