@@ -1,8 +1,61 @@
 # multimethod
 
-A light weight library for [Multiple Dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch#:~:text=Multiple%20dispatch%20or%20multimethods%20is,than%20one%20of%20its%20arguments.) in TypeScript.
+A light weight library for [Multimethods / Multiple
+Dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch) in TypeScript.
 
 ## Examples
+
+### Discriminating unions
+
+A common pattern in large-ish TypeScript code bases is that of [discriminating
+unions](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions).
+Whenever one wants to do something non-generic with objects of this type one
+needs to check the type of the object and switch over its type. Multimethods
+provides a flexible alternative to large `switch` blocks.
+
+```ts
+type NetworkLoadingState = {
+  state: "loading";
+};
+
+type NetworkFailedState = {
+  state: "failed";
+  code: number;
+};
+
+type NetworkSuccessState = {
+  state: "success";
+  response: {
+    title: string;
+    duration: number;
+    summary: string;
+  };
+};
+
+type NetworkState =
+  | NetworkLoadingState
+  | NetworkFailedState
+  | NetworkSuccessState;
+
+// switch case
+const handle = (ns: NetworkState) => {
+  switch(ns.type) {
+    case "loading":
+      ...
+    case "failed":
+      ...
+    case: "success":
+      ...
+  }
+}
+
+// multimethods
+const handle = defmethod((ns) => ns.type);
+
+defmethod(handle, "loading", (ns) => ...);
+defmethod(handle, "failed", (ns) => ...);
+defmethod(handle, "success", (ns) => ...);
+```
 
 ### Hello world
 
