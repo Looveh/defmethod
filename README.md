@@ -1,4 +1,4 @@
-# multimethod
+# defmethod
 
 A light weight library for [Multimethods / Multiple
 Dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch) in TypeScript.
@@ -8,6 +8,8 @@ Dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch) in TypeScript.
 ### Hello world
 
 ```ts
+import { defmulti, defmethod } from "defmethod";
+
 const greet = defmulti((greeting) => greeting.type);
 
 defmethod(greet, "hi", (p) => `Hello ${p.name}!`);
