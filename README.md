@@ -3,21 +3,53 @@
 A light weight library for [Multimethods / Multiple
 Dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch) in TypeScript.
 
-## Examples
-
-### Hello world
+## Usage
 
 ```ts
 import { defmulti, defmethod } from "defmethod";
 
-const greet = defmulti((greeting) => greeting.type);
+enum Type {
+  Foo,
+  Bar,
+  Baz,
+}
 
-defmethod(greet, "hi", (p) => `Hello ${p.name}!`);
-defmethod(greet, "bye", (p) => `Good bye ${p.name}!`);
+interface Params {
+  type: Type;
+  message: string;
+}
 
-greet({ type: "hi", name: "John" })   // => Hello John!
-greet({ type: "bye", name: "Sarah" }) // => Good bye Sarah!
+// create a multimethod
+const myfn = defmulti<
+  Params, // type of myfn's argument
+  string, // type of myfn's handlers' return values
+  Type, // type of the dispatch fn's return value
+>(
+  (x) => x.type // dispatch fn
+);
+
+// register handlers for the multimethod
+defmethod(
+  myfn, // multimethod
+  Type.Foo, // dispatch val
+  (x) => `foo ${x.message}` // dispatch handler
+);
+defmethod(myfn, Type.Bar, (x) => `bar ${x.message}`);
+defmethod(myfn, Type.Baz, (x) => `baz ${x.message}`);
+
+// call the multimethod
+myfn({ type: Type.Foo, message: " hello" }) // => "foo hello"
+myfn({ type: Type.Bar, message: " world" }) // => "bar world"
+myfn({ type: Type.Baz, message: "!" }) // => "baz!"
+
+// type variables are optional
+const otherfn = defmulti((x) => x.type);
+
+defmethod(otherfn, Type.Foo, (x) => `otherfoo ${x.message}`);
+// etc.
 ```
+
+## Examples
 
 ### Discriminating unions
 
