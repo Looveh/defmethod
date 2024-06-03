@@ -102,7 +102,7 @@ const handle = (ns: NetworkState) => {
 }
 
 // multimethods
-const handle = defmethod((ns) => ns.type);
+const handle = defmulti((ns) => ns.type);
 
 defmethod(handle, "loading", (ns) => ...);
 defmethod(handle, "failed", (ns) => ...);
