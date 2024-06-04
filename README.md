@@ -93,20 +93,20 @@ type NetworkState =
 const handle = (ns: NetworkState) => {
   switch(ns.state) {
     case "loading":
-      ...
+      return "LOADING"
     case "failed":
-      ...
-    case: "success":
-      ...
+      return `FAILED: ${ns.code}`
+    case "success":
+      return `SUCCESS: ${ns.response.title}`
   }
 }
 
 // multimethods
-const handle = defmulti((ns) => ns.state);
+const handle = defmulti((ns: NetworkState) => ns.state);
 
-defmethod(handle, "loading", (ns) => ...);
-defmethod(handle, "failed", (ns) => ...);
-defmethod(handle, "success", (ns) => ...);
+defmethod(handle, "loading", (_ns: NetworkSuccessState) => "LOADING");
+defmethod(handle, "failed", (ns: NetworkFailedState) => `FAILED: ${ns.code}`);
+defmethod(handle, "success", (ns: NetworkSuccessState) => `SUCCESS: ${ns.response.title}`);
 ```
 
 ### Collatz sequences
