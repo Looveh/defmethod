@@ -91,7 +91,7 @@ type NetworkState =
 
 // switch case
 const handle = (ns: NetworkState) => {
-  switch(ns.type) {
+  switch(ns.state) {
     case "loading":
       ...
     case "failed":
