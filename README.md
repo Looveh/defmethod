@@ -104,7 +104,7 @@ const handle = (ns: NetworkState) => {
 // multimethods
 const handle = defmulti((ns: NetworkState) => ns.state);
 
-defmethod(handle, "loading", (_ns: NetworkSuccessState) => "LOADING");
+defmethod(handle, "loading", (_ns: NetworkLoadingState) => "LOADING");
 defmethod(handle, "failed", (ns: NetworkFailedState) => `FAILED: ${ns.code}`);
 defmethod(handle, "success", (ns: NetworkSuccessState) => `SUCCESS: ${ns.response.title}`);
 ```
